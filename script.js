@@ -258,5 +258,53 @@ const App = {
 
 }
 
+
+    const html = document.querySelector("html")
+    const checkbox = document.querySelector("input[name=theme]")
+
+    const getStyle = (element, style) => 
+        window
+            .getComputedStyle(element)
+            .getPropertyValue(style)
+
+    const initialColors = {
+        bgBody: getStyle(html, "--bg-body--"),
+        darkBlue: getStyle(html, "--dark-blue--"),
+        cardTotal: getStyle(html, "--bg-cardtotal--"),
+        headerColor: getStyle(html, "--header-green--"),
+        bgCards:getStyle(html, "--bg-cards--"),
+        bgModal:getStyle(html, "--bg-modal--"),
+        bgInput:getStyle(html, "--bg-modal--"),
+        colorInput:getStyle(html, "--color-input--"),
+        bgThead: getStyle(html, "--bg-thead--"),
+    }
+
+    const darkMode = {
+        bgBody: "#212121",
+        darkBlue: "#FAFAFA",
+        cardTotal: "#33691E",
+        headerColor: "#1B5E20",
+        bgCards: "#424242",
+        bgModal: "#0c0c0c",
+        bgInput: "#131313",
+        colorInput:"#ffffff",
+        bgThead: "#272727",
+    }
+
+    const transformKey = key => 
+        "--" + key.replace(/([A-Z])/, "-$1").toLowerCase() + "--"
+
+    const changeColors = (colors) => {
+        Object.keys(colors).map(key => 
+            html.style.setProperty(transformKey(key), colors[key]) 
+        )
+    }
+
+
+    checkbox.addEventListener("change", ({target}) => {
+        target.checked ? changeColors(darkMode) : changeColors(initialColors)
+    })
+
+
 App.init()
 

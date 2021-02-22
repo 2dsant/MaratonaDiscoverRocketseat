@@ -1,9 +1,17 @@
 /*============= GLOBAL =============*/
-:root {
+html {
+    --bg-body--: #f0f2f5;
+    --bg-header--: #2d4a22;
+    --bg-cards--: #fafafa;
+    --bg-cardtotal--: #49aa26;
     --dark-blue--: #363f5f;
-    --green--:#49aa26;
-    --lightgreen: #3dd705;
     --red--: #e92929;
+    --green--:#49aa26;
+    --lightgreen--: #3dd705;
+    --bg-modal--:white;
+    --bg-input--:white;
+    --color-input--: black;
+    --bg-thead--: #ffffff;
 }
 
 * {
@@ -17,7 +25,7 @@ html {
 }
 
 body {
-    background: #f0f2f5;
+    background: var(--bg-body--);
     font-family: 'Poppins', sans-serif;
 }
 
@@ -52,7 +60,7 @@ a {
 }
 
 a:hover {
-    color: var(--lightgreen);
+    color: var(--lightgreen--);
 }
 
 button {
@@ -67,7 +75,7 @@ button {
 }
 
 button:hover {
-    background: var(--lightgreen);
+    background: var(--lightgreen--);
 }
 
 .button.new {
@@ -91,13 +99,13 @@ button:hover {
 
 /*============= HEADER =============*/
 header {
-    background: #2d4a22;
+    background: var(--bg-header--);
     padding: 2rem 0 10rem;
     text-align: center;
 }
 
 #logo {
-    color: #fff;
+    color: var(--white--);
     font-weight: 100;
 }
 /*============= BALANCE =============*/
@@ -106,13 +114,13 @@ header {
 }
 
 #balance h2 {
-    color: white;
+    color: var(--white--);
     margin-top: 0;
 }
 
 /*============= CARDS =============*/
 .cards {
-    background: white;
+    background: var(--bg-cards--);
     padding: 1.5rem 2rem;
     border-radius: 0.25rem;
     margin-bottom: 2rem;
@@ -135,7 +143,7 @@ header {
 }
 
 .cards.total {
-    background: var(--green--);
+    background: var(--bg-cardtotal--);
     color: white;
 }
 
@@ -149,7 +157,13 @@ header {
 #data-table {
     width: 100%;
     border-spacing: 0 .5rem;
-    color: #969cb3;
+    color: var(--dark-blue--);
+}
+#data-table thead{
+    background: var(--bg-thead--);
+}
+#data-table tbody{
+    background: var(--bg-thead--);
 }
 
 table thead tr th:first-child,
@@ -163,7 +177,7 @@ table tbody tr td:last-child {
 }
 
 table thead th {
-    background: white;
+    background: var(--white--);
     font-weight: normal;
     padding: 1rem 2rem;
     text-align: left;
@@ -178,7 +192,7 @@ table tbody tr:hover {
 }
 
 table tbody td {
-    background: white;
+    background: var(--white--);
     padding: 1rem 2rem;
 }
 
@@ -187,7 +201,7 @@ td.description {
 }
 
 td.income {
-    color: #12a454;
+    color: var(--green-income--);
 }
 
 td.expense {
@@ -206,6 +220,7 @@ td.expense {
     justify-content: center;
     opacity: 0;
     visibility: hidden;
+    z-index: 999;
 }
 .modal-overlay.active {
     opacity: 1;
@@ -213,12 +228,15 @@ td.expense {
 }
 
 .modal {
-    background: #f0f2f5;
+    background: var(--bg-modal--);
     padding: 2.4rem;
     width: 90%;
     max-width: 600px;
     box-shadow: 1px 1px 14px 1px black;
-    border-radius: 0.2rem
+    border-radius: 0.2rem;
+
+    position: relative;
+    z-index: 1;
 }
 
 /*============= FOOTER =============*/
@@ -235,9 +253,10 @@ td.expense {
 input {
     border: none;
     border-radius: 0.2rem;
-
+    background: var(--bg-input--);
     padding: 0.8rem;
     width: 100%;
+    color: var(--color-input--);
 }
 
 .input-group {
@@ -246,6 +265,7 @@ input {
 
 .input-group small {
     opacity: .5;
+    color: var(--dark-blue--);
 }
 
 .input-group.actions {
@@ -266,9 +286,71 @@ footer{
     color: var(--dark-blue--);
     opacity: .6;
 }
-
-
-
+/*=============TOGGLE=============*/
+.toggle {
+    position: fixed;
+    bottom: 10vh;
+    right: 10vh;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #404040;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #b4b4b4;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(24px);
+    -ms-transform: translateX(24px);
+    transform: translateX(24px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
 /*============= RESPONSIVE =============*/
 @media (min-width: 800px) {
     html {
